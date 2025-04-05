@@ -1,0 +1,33 @@
+{
+  "name": "career-buddy",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "emulate": "firebase emulators:start",
+    "dev:firebase": "concurrently \"npm run dev\" \"npm run emulate\""
+  },
+  "dependencies": {
+    "@types/react-transition-group": "^4.4.12",
+    "firebase": "^11.6.0",
+    "phosphor-react": "^1.4.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.12.0",
+    "react-router-dom": "^6.30.0",
+    "react-transition-group": "^4.4.5",
+    "typed.js": "^2.0.16"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.3",
+    "concurrently": "^8.2.2",
+    "firebase-tools": "^12.9.1",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
+  }
+}
