@@ -39,14 +39,15 @@
 }
 
 @keyframes glowPulse {
-  0%, 100% {
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5),
-                 0 0 20px rgba(0, 255, 255, 0.3);
+  0%, 100% { 
+    opacity: 0.4;
+    filter: blur(3px);
+    transform: scale(1);
   }
-  50% {
-    text-shadow: 0 0 20px rgba(0, 255, 255, 0.8),
-                 0 0 30px rgba(0, 255, 255, 0.5),
-                 0 0 40px rgba(0, 255, 255, 0.3);
+  50% { 
+    opacity: 0.8;
+    filter: blur(5px);
+    transform: scale(1.2);
   }
 }
 
@@ -105,13 +106,13 @@
 }
 
 @keyframes floatUpDown {
-  0%, 100% { transform: translateY(0) rotate(0); }
-  50% { transform: translateY(-20px) rotate(5deg); }
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(0, -30px) rotate(5deg); }
 }
 
 @keyframes floatLeftRight {
-  0%, 100% { transform: translateX(0) rotate(0); }
-  50% { transform: translateX(20px) rotate(-5deg); }
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, 0) rotate(-5deg); }
 }
 
 @keyframes wave {
@@ -327,15 +328,35 @@
   40%, 60% { transform: translate3d(4px, 0, 0); }
 }
 
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotateReverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 :root {
-  --primary: #1a1a2e;
-  --secondary: #16213e;
-  --accent: #0f3460;
-  --highlight: #e94560;
-  --background: #f8f9fa;
-  --surface: #ffffff;
-  --text: #2d3436;
-  --text-light: #636e72;
+  --primary: #0F0F1E;     
+  --secondary: #0A1029;   
+  --accent: #082042;      
+  --highlight: #E01C45;   
+  --background: #F0F2F5;  
+  --surface: #FFFFFF;     
+  --text: #1A1E23;       
+  --text-light: #4B5563; 
+   
+  --gradient-primary: linear-gradient(135deg, #0F0F1E, #0A1029);
+  --gradient-accent: linear-gradient(135deg, #082042, #E01C45);
+  --gradient-surface: linear-gradient(135deg, #F0F2F5, #FFFFFF);
 }
 
 body {
@@ -489,7 +510,7 @@ body::before {
   position: absolute;
   inset: 0;
   border-radius: 12px;
-  padding: 2px; /* control the border thickness */
+  padding: 2px;
   background: linear-gradient(
     45deg,
     var(--accent),
@@ -813,7 +834,7 @@ body::before {
   flex-direction: column;
   align-items: flex-end;
   animation: float 6s ease-in-out infinite;
-  pointer-events: none; /* Make container not block interactions */
+  pointer-events: none;
 }
 
 .chatbot-message {
@@ -830,7 +851,7 @@ body::before {
   max-width: 300px;
   border: 2px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  pointer-events: all; /* Re-enable interactions for message */
+  pointer-events: all;
 }
 
 .chatbot-button {
@@ -848,7 +869,7 @@ body::before {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  pointer-events: all; /* Re-enable interactions for button */
+  pointer-events: all;
 }
 
 .chatbot-button::before {
@@ -1009,7 +1030,7 @@ body::before {
 }
 
 .hero-section {
-  padding: 8rem 2rem 2rem; /* Reduced bottom padding from 4rem to 2rem */
+  padding: 8rem 2rem 2rem;
   text-align: center;
   max-width: 1200px;
   margin: 0 auto;
@@ -1036,28 +1057,7 @@ body::before {
   max-width: 800px;
   margin: 0 auto;
   line-height: 1.6;
-  margin-bottom: 2rem; /* Reduced from 3rem to 2rem */
-}
-
-/* Remove unused hero-cta styles */
-.hero-cta,
-.primary-button {
-  display: none;
-}
-
-.section-title {
-  text-align: center;
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 3rem;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.features-section {
-  padding: 3rem 2rem; /* Reduced top padding from 6rem to 3rem */
-  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.1));
+  margin-bottom: 2rem;
 }
 
 .hero-title {
@@ -1341,7 +1341,6 @@ body::before {
   animation: logoFade 1s ease-in-out infinite alternate;
 }
 
-/* Page Transitions */
 .page-transition-enter {
   opacity: 0;
   transform: translateY(20px);
@@ -1458,7 +1457,69 @@ body::before {
   width: 100%;
   height: 100%;
   pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.floating-elements > div {
+  position: absolute;
+  transition: transform 0.3s ease;
+  opacity: 0.4;
+}
+
+.floating-circle {
+  width: 60px;
+  height: 60px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  animation: floatUpDown 8s ease-in-out infinite, glowPulse 4s ease-in-out infinite;
+}
+
+.floating-square {
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--highlight);
+  transform: rotate(15deg);
+  animation: floatLeftRight 7s ease-in-out infinite, rotate 10s linear infinite;
+}
+
+.floating-triangle {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 40px solid var(--secondary);
+  animation: floatUpDown 9s ease-in-out infinite, rotateReverse 12s linear infinite;
+}
+
+.glow-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  filter: blur(3px);
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.gradient-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, var(--accent), var(--highlight));
+  opacity: 0.2;
+  filter: blur(20px);
+  animation: floatBlur 10s ease-in-out infinite, gradientShift 8s linear infinite;
+}
+
+.floating-elements {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
   z-index: 0;
+  overflow: hidden;
 }
 
 .floating-circle {
@@ -1618,7 +1679,7 @@ body::before {
 
 .login-button {
   margin-left: auto;
-  margin-right: 2rem;  /* Add margin from right */
+  margin-right: 2rem;
   padding: 0.5rem 1.5rem;
   background: var(--primary);
   color: var(--surface);
@@ -1626,7 +1687,7 @@ body::before {
   border-radius: 4px;
   font-weight: 600;
   transition: all 0.3s ease;
-  z-index: 101;  /* Ensure button stays above blur overlay */
+  z-index: 101;
 }
 
 .auth-separator {
@@ -2010,17 +2071,6 @@ body::before {
   box-shadow: 0 5px 15px rgba(225, 48, 108, 0.4);
 }
 
-/* Remove unused footer styles */
-.footer-branding, .footer-contact, .footer-tagline {
-  display: none;
-}
-
-/* Remove unused footer styles */
-.footer-connect, .footer-stats, .footer-mission, .footer-contact-grid {
-  display: none;
-}
-
-/* Add new auth form styles */
 .auth-tabs {
   display: flex;
   gap: 1rem;
@@ -2103,8 +2153,6 @@ body::before {
   transform: translateY(-2px);
 }
 
-/* Add landing page styles */
-
 .landing-page {
   min-height: 100vh;
   background: linear-gradient(135deg, var(--background), #e3e6e8);
@@ -2173,8 +2221,6 @@ body::before {
   color: var(--text-light);
   line-height: 1.6;
 }
-
-/* Add styles for the share menu */
 
 .share-menu-container {
   position: relative;
