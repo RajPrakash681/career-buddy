@@ -1,0 +1,328 @@
+/* Container styles */
+.chatbot-container {
+  width: 100%;
+  max-width: 700px;
+  margin: 2rem auto;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  background: rgba(10, 10, 46, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 
+    0 0 20px rgba(0, 149, 255, 0.3),
+    0 0 40px rgba(0, 149, 255, 0.2),
+    inset 0 0 20px rgba(0, 149, 255, 0.2);
+  border: 1px solid rgba(0, 149, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Chatbot wrapper */
+.chatbot-wrapper {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 380px;
+  height: 600px;
+  background: rgba(15, 15, 35, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(0, 149, 255, 0.2);
+  animation: slideIn 0.3s ease-out;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Chatbot panel */
+.chatbot-panel {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 1001;
+  animation: slideIn 0.3s ease-out;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Chatbot header */
+.chatbot-header {
+  padding: 20px;
+  background: rgba(0, 149, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 149, 255, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatbot-header h3 {
+  color: white;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  transform: rotate(90deg);
+}
+
+/* Messages area */
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Message bubbles */
+.message {
+  max-width: 85%;
+  padding: 12px 16px;
+  border-radius: 15px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  animation: messageAppear 0.3s ease-out;
+}
+
+.message.user {
+  background: rgba(0, 149, 255, 0.2);
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 5px;
+}
+
+.message.bot {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  align-self: flex-start;
+  border-bottom-left-radius: 5px;
+}
+
+.message.error {
+  background: rgba(255, 68, 68, 0.8);
+  color: white;
+  align-self: center;
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Loading indicator */
+.loading {
+  color: rgba(255, 255, 255, 0.6);
+  align-self: flex-start;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  animation: pulse 1.5s infinite;
+}
+
+/* Input form */
+.input-form {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  gap: 10px;
+}
+
+.input-form input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid rgba(0, 149, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+  font-size: 0.95rem;
+}
+
+.input-form input:focus {
+  outline: none;
+  border-color: rgba(0, 149, 255, 0.6);
+}
+
+.input-form input[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.input-form button {
+  padding: 0 20px;
+  background: rgba(0, 149, 255, 0.3);
+  border: 1px solid rgba(0, 149, 255, 0.4);
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.input-form button:hover:not(:disabled) {
+  background: rgba(0, 149, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.input-form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Button styles */
+.input-form button:disabled {
+  background: rgba(204, 204, 204, 0.2);
+  border-color: rgba(204, 204, 204, 0.3);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* File upload button */
+.file-upload {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 149, 255, 0.2);
+  border: 1px solid rgba(0, 149, 255, 0.4);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-upload:hover {
+  background: rgba(0, 149, 255, 0.4);
+  box-shadow: 0 0 15px rgba(0, 149, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.file-upload input {
+  display: none;
+}
+
+.file-upload span {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Chat Button */
+.chat-button-wrapper {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+}
+
+.chat-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(0, 149, 255, 0.2);
+  border: 1px solid rgba(0, 149, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(0, 149, 255, 0.3);
+}
+
+.chat-button:hover {
+  transform: scale(1.1);
+  background: rgba(0, 149, 255, 0.3);
+}
+
+.chat-icon {
+  color: white;
+}
+
+.hover-message {
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  width: 280px;
+  background: rgba(10, 10, 46, 0.9);
+  padding: 1.5rem;
+  border-radius: 12px;
+  color: white;
+  box-shadow: 0 0 20px rgba(0, 149, 255, 0.2);
+  animation: fadeIn 0.3s ease-out;
+  border: 1px solid rgba(0, 149, 255, 0.3);
+}
+
+.hover-message p {
+  margin: 0 0 0.8rem 0;
+}
+
+.hover-message ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.hover-message li {
+  margin: 0.4rem 0;
+  list-style-type: disc;
+}
+
+/* Animations */
+@keyframes messageAppear {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+  from { 
+    transform: translateY(0); 
+    opacity: 1;
+    visibility: visible;
+  }
+  to { 
+    transform: translateY(20px); 
+    opacity: 0;
+    visibility: hidden;
+  }
+}

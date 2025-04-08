@@ -16,6 +16,8 @@ import Testimonials from './Testimonials';
 import Footer from './Footer';
 import CallToAction from './CallToAction';
 import AuthModal from './AuthModal';
+import { sendChatMessage } from '../libs/apiCalls';
+import Chatbot from './Chatbot';
 
 const FeatureCard = ({ title, icon: Icon, altIcon: AltIcon, tooltip }: {
   title: string; 
@@ -41,6 +43,28 @@ const Dashboard = () => {
   const chatbotRef = useRef<HTMLDivElement>(null);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showChatbot, setShowChatbot] = useState(false);
+  const [showHoverMessage, setShowHoverMessage] = useState(false);
+
+  const handleClickOutside = (e: MouseEvent) => {
+    const chatbotPanel = document.querySelector('.chatbot-panel');
+    if (chatbotPanel && !chatbotPanel.contains(e.target as Node)) {
+      setShowChatbot(false);
+    }
+  };
+
+  useEffect(() => {
+    if (showChatbot) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showChatbot]);
+
+  const handleCloseChatbot = () => {
+    setShowChatbot(false);
+  };
 
   useEffect(() => {
     const typed = new Typed(typedRef.current, {
@@ -109,6 +133,11 @@ const Dashboard = () => {
     document.addEventListener('mousemove', handleMouseMove);
     return () => document.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  const handleChatbotClick = () => {
+    setShowChatbot(!showChatbot);
+    setShowHoverMessage(false);
+  };
 
   const features = [
     { 
@@ -245,11 +274,20 @@ const Dashboard = () => {
 
       <Footer />
       
-      <div className="chatbot-container" ref={chatbotRef}>
-        {showMessage && (
-          <div className="chatbot-message">
-            👋 Hi! I'm your AI Career Assistant. I can help you:
-            <ul style={{ marginTop: '0.5rem', marginLeft: '1.2rem' }}>
+      <div className="chat-button-wrapper">
+        <div 
+          className="chat-button"
+          onMouseEnter={() => setShowHoverMessage(true)}
+          onMouseLeave={() => setShowHoverMessage(false)}
+          onClick={handleChatbotClick}
+        >
+          <Robot weight="duotone" size={32} className="chat-icon" />
+        </div>
+        
+        {showHoverMessage && !showChatbot && (
+          <div className="hover-message">
+            <p>👋 Hi! I'm your AI Career Assistant. I can help you:</p>
+            <ul>
               <li>Explore career paths</li>
               <li>Review your resume</li>
               <li>Practice interviews</li>
@@ -257,14 +295,12 @@ const Dashboard = () => {
             </ul>
           </div>
         )}
-        <div className="chatbot-button">
-          <Robot 
-            weight="duotone" 
-            size={48} 
-            className="chatbot-icon" 
-            onClick={() => setShowMessage(!showMessage)}
-          />
-        </div>
+
+        {showChatbot && (
+          <div className="chatbot-panel">
+            <Chatbot onClose={handleCloseChatbot} />
+          </div>
+        )}
       </div>
     </div>
   );
