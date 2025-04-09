@@ -25,16 +25,17 @@
   right: 20px;
   width: 380px;
   height: 600px;
-  background: rgba(15, 15, 35, 0.95);
-  border-radius: 20px;
-  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(145deg, rgba(15, 15, 35, 0.98), rgba(20, 20, 45, 0.95));
+  border-radius: 24px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    0 2px 8px rgba(0, 149, 255, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid rgba(0, 149, 255, 0.2);
   animation: slideIn 0.3s ease-out;
-  visibility: visible;
-  opacity: 1;
+  backdrop-filter: blur(10px);
 }
 
 /* Chatbot panel */
@@ -51,7 +52,7 @@
 /* Chatbot header */
 .chatbot-header {
   padding: 20px;
-  background: rgba(0, 149, 255, 0.1);
+  background: linear-gradient(90deg, rgba(0, 149, 255, 0.15), rgba(0, 149, 255, 0.05));
   border-bottom: 1px solid rgba(0, 149, 255, 0.2);
   display: flex;
   justify-content: space-between;
@@ -60,8 +61,12 @@
 
 .chatbot-header h3 {
   color: white;
-  margin: 0;
   font-size: 1.1rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .close-button {
@@ -90,31 +95,93 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 149, 255, 0.3) transparent;
+}
+
+.messages-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 149, 255, 0.3);
+  border-radius: 3px;
 }
 
 /* Message bubbles */
 .message {
   max-width: 85%;
   padding: 12px 16px;
-  border-radius: 15px;
+  border-radius: 16px;
   font-size: 0.95rem;
-  line-height: 1.4;
+  line-height: 1.5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   animation: messageAppear 0.3s ease-out;
 }
 
 .message.user {
-  background: rgba(0, 149, 255, 0.2);
+  background: linear-gradient(135deg, rgba(0, 149, 255, 0.3), rgba(0, 149, 255, 0.2));
   color: white;
   align-self: flex-end;
-  border-bottom-right-radius: 5px;
+  border-bottom-right-radius: 4px;
+  border: 1px solid rgba(0, 149, 255, 0.3);
 }
 
 .message.bot {
   background: rgba(255, 255, 255, 0.05);
   color: white;
   align-self: flex-start;
-  border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  white-space: pre-line;
+  font-size: 0.9rem;
+}
+
+.message.bot ul,
+.message.bot ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.message.bot li {
+  margin: 0.3rem 0;
+}
+
+.message.bot strong,
+.message.bot b {
+  color: rgba(0, 149, 255, 0.9);
+  font-weight: 600;
+}
+
+.message.bot ul li {
+  list-style-type: disc;
+}
+
+.message.bot ul ul li {
+  list-style-type: circle;
+}
+
+.message.bot ol li {
+  list-style-type: decimal;
+}
+
+.message.bot p {
+  margin: 0.5rem 0;
+}
+
+.message.bot code {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+/* Add indent for examples and details */
+.message.bot .indent {
+  margin-left: 1.5rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid rgba(0, 149, 255, 0.3);
 }
 
 .message.error {
@@ -126,36 +193,48 @@
 
 /* Loading indicator */
 .loading {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.8);
   align-self: flex-start;
   font-size: 0.9rem;
-  padding: 8px 12px;
+  padding: 8px 16px;
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 15px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   animation: pulse 1.5s infinite;
+}
+
+.loading::after {
+  content: "...";
+  animation: loadingDots 1.5s infinite;
 }
 
 /* Input form */
 .input-form {
-  padding: 20px;
+  padding: 16px;
   background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
-  gap: 10px;
+  gap: 12px;
+  align-items: center;
 }
 
 .input-form input {
   flex: 1;
-  padding: 12px;
-  border: 1px solid rgba(0, 149, 255, 0.3);
-  border-radius: 8px;
+  padding: 12px 16px;
+  border: 2px solid rgba(0, 149, 255, 0.3);
+  border-radius: 12px;
   background: rgba(0, 0, 0, 0.2);
   color: white;
   font-size: 0.95rem;
+  transition: all 0.3s ease;
 }
 
 .input-form input:focus {
   outline: none;
   border-color: rgba(0, 149, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(0, 149, 255, 0.1);
 }
 
 .input-form input[type="text"]::placeholder {
@@ -163,23 +242,27 @@
 }
 
 .input-form button {
-  padding: 0 20px;
-  background: rgba(0, 149, 255, 0.3);
-  border: 1px solid rgba(0, 149, 255, 0.4);
-  border-radius: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #0084ff, #0052cc);
+  border: none;
+  border-radius: 12px;
   color: white;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .input-form button:hover:not(:disabled) {
-  background: rgba(0, 149, 255, 0.4);
   transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #0095ff, #0063e6);
 }
 
 .input-form button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  background: linear-gradient(135deg, #666, #444);
 }
 
 /* Button styles */
@@ -325,4 +408,10 @@
     opacity: 0;
     visibility: hidden;
   }
+}
+
+@keyframes loadingDots {
+  0%, 20% { content: "."; }
+  40%, 60% { content: ".."; }
+  80%, 100% { content: "..."; }
 }

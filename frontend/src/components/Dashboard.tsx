@@ -18,6 +18,7 @@ import CallToAction from './CallToAction';
 import AuthModal from './AuthModal';
 import { sendChatMessage } from '../libs/apiCalls';
 import Chatbot from './Chatbot';
+import { Link } from 'react-router-dom';
 
 const FeatureCard = ({ title, icon: Icon, altIcon: AltIcon, tooltip }: {
   title: string; 
@@ -221,6 +222,10 @@ const Dashboard = () => {
               <ChatsCircle weight="duotone" />
               <span>Community</span>
             </a>
+            <Link to="/news" className="nav-link">
+              <Newspaper weight="duotone" />
+              <span>Tech News & Events</span>
+            </Link>
           </div>
         </div>
 
@@ -254,10 +259,28 @@ const Dashboard = () => {
         <section className="features-section">
           <div className="features-grid">
             {features.map((feature, index) => (
-              <FeatureCard 
-                key={index}
-                {...feature}
-              />
+              feature.title === 'Tech News & Events' ? (
+                <Link to="/news" key={index} className="feature-card">
+                  <div className="feature-tooltip">{feature.tooltip}</div>
+                  <div className="feature-icon">
+                    <feature.icon size={44} weight="duotone" />
+                  </div>
+                  <h3>{feature.title}</h3>
+                </Link>
+              ) : feature.title === 'Updates on Hackathons' ? (
+                <Link to="/hackathons" key={index} className="feature-card">
+                  <div className="feature-tooltip">{feature.tooltip}</div>
+                  <div className="feature-icon">
+                    <feature.icon size={44} weight="duotone" />
+                  </div>
+                  <h3>{feature.title}</h3>
+                </Link>
+              ) : (
+                <FeatureCard 
+                  key={index}
+                  {...feature}
+                />
+              )
             ))}
           </div>
         </section>

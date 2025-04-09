@@ -5,6 +5,8 @@ import { auth } from './config/firebase';
 import LandingPage from './pages/LandingPage';
 import Dashboard from './components/Dashboard';
 import LoadingScreen from './components/LoadingScreen';
+import News from './pages/News';
+import Hackathons from './pages/Hackathons';
 import './styles/global.css';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -34,6 +36,8 @@ function App() {
             <Dashboard />
           </ProtectedRoute>
         } />
+        <Route path="/news" element={<News />} />
+        <Route path="/hackathons" element={<Hackathons />} />
       </Routes>
     </BrowserRouter>
   );
