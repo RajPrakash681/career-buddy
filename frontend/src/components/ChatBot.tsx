@@ -78,7 +78,7 @@ function Chatbot({ onClose }: { onClose: () => void }) {
     setIsClosing(true);
     setTimeout(() => {
       onClose();
-    }, 300); // Match animation duration
+    }, 300);  
   };
 
   return (
