@@ -21,8 +21,8 @@
 /* Chatbot wrapper */
 .chatbot-wrapper {
   position: fixed;
-  bottom: 80px;
-  right: 20px;
+  bottom: 30px;
+  right: 30px;
   width: 380px;
   height: 600px;
   background: linear-gradient(145deg, rgba(15, 15, 35, 0.98), rgba(20, 20, 45, 0.95));
@@ -394,7 +394,7 @@
 
 @keyframes slideIn {
   from { transform: translateY(100px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(40px); opacity: 1; }
 }
 
 @keyframes slideOut {
