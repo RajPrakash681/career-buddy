@@ -188,10 +188,6 @@ const Dashboard = () => {
 
         <div className="nav-center">
           <div className="nav-links">
-            <a href="#resources" className="nav-link">
-              <Book weight="duotone" />
-              <span>Resources</span>
-            </a>
             <a href="#opportunities" className="nav-link">
               <BriefcaseMetal weight="duotone" />
               <span>Opportunities</span>
@@ -200,10 +196,6 @@ const Dashboard = () => {
               <ChatsCircle weight="duotone" />
               <span>Community</span>
             </a>
-            <Link to="/news" className="nav-link">
-              <Newspaper weight="duotone" />
-              <span>Tech News & Events</span>
-            </Link>
           </div>
         </div>
 
@@ -251,6 +243,14 @@ const Dashboard = () => {
                 </Link>
               ) : feature.title === 'Updates on Hackathons' ? (
                 <Link to="/hackathons" key={index} className="feature-card">
+                  <div className="feature-tooltip">{feature.tooltip}</div>
+                  <div className="feature-icon">
+                    <feature.icon size={44} weight="duotone" />
+                  </div>
+                  <h3>{feature.title}</h3>
+                </Link>
+              ) : feature.title === 'Student Dashboard' ? (
+                <Link to="/student-dashboard" key={index} className="feature-card">
                   <div className="feature-tooltip">{feature.tooltip}</div>
                   <div className="feature-icon">
                     <feature.icon size={44} weight="duotone" />

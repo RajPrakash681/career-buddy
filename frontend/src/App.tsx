@@ -7,6 +7,7 @@ import Dashboard from './components/Dashboard';
 import LoadingScreen from './components/LoadingScreen';
 import News from './pages/News';
 import Hackathons from './pages/Hackathons';
+import StudentDashboard from './pages/StudentDashboard';
 import './styles/global.css';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -38,6 +39,7 @@ function App() {
         } />
         <Route path="/news" element={<News />} />
         <Route path="/hackathons" element={<Hackathons />} />
+        <Route path="/student-dashboard" element={<StudentDashboard />} />
       </Routes>
     </BrowserRouter>
   );
