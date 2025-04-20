@@ -1,30 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { 
   Briefcase, Users, Code, ChartPie, 
-  Newspaper, Books, RocketLaunch, 
-  Brain, Target, Lightbulb, ChatCircleText, Robot,
-  EnvelopeSimple, TwitterLogo, InstagramLogo,
-  Book, BriefcaseMetal, ChatsCircle
+  Newspaper, Books, RocketLaunch, Robot,
+  BriefcaseMetal, ChatsCircle
 } from 'phosphor-react';
+import { onAuthStateChanged, User } from 'firebase/auth';
 import Typed from 'typed.js';
 import Particles from './Particles';
 import FloatingElements from './FloatingElements';
 import BackgroundWaves from './BackgroundWaves';
-import MagneticButton from './MagneticButton';
-import LoginForm from './LoginForm';
 import Testimonials from './Testimonials';
 import Footer from './Footer';
 import CallToAction from './CallToAction';
 import AuthModal from './AuthModal';
-import { sendChatMessage } from '../libs/apiCalls';
-import Chatbot from './Chatbot';
+import ChatBot from './ChatBot';
 import { Link } from 'react-router-dom';
+import { auth } from '../config/firebase';
+import UserInfo from './UserInfo';
 
-const FeatureCard = ({ title, icon: Icon, altIcon: AltIcon, tooltip }: {
+const FeatureCard = ({ title, icon: Icon, tooltip }: {
   title: string; 
-  icon: React.ElementType; 
-  altIcon: React.ElementType;
-  tooltip: string;
+  icon: React.ElementType;
+  tooltip: string; 
 }) => {
   return (
     <div className="feature-card">
@@ -40,12 +37,17 @@ const FeatureCard = ({ title, icon: Icon, altIcon: AltIcon, tooltip }: {
 const Dashboard = () => {
   const typedRef = useRef(null);
   const subtitleRef = useRef(null);
-  const [showMessage, setShowMessage] = useState(false);
-  const chatbotRef = useRef<HTMLDivElement>(null);
-  const [showLoginForm, setShowLoginForm] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showChatbot, setShowChatbot] = useState(false);
   const [showHoverMessage, setShowHoverMessage] = useState(false);
+  const [user, setUser] = useState<User | null>(auth.currentUser);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
+      setUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleClickOutside = (e: MouseEvent) => {
     const chatbotPanel = document.querySelector('.chatbot-panel');
@@ -117,24 +119,6 @@ const Dashboard = () => {
     return () => document.removeEventListener('mousemove', handleParallax);
   }, []);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (chatbotRef.current) {
-        const rect = chatbotRef.current.getBoundingClientRect();
-        const isNearChatbot = 
-          e.clientX > rect.left - 100 && 
-          e.clientX < rect.right + 100 &&
-          e.clientY > rect.top - 100 && 
-          e.clientY < rect.bottom + 100;
-        
-        setShowMessage(isNearChatbot);
-      }
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    return () => document.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
   const handleChatbotClick = () => {
     setShowChatbot(!showChatbot);
     setShowHoverMessage(false);
@@ -144,37 +128,31 @@ const Dashboard = () => {
     { 
       title: 'Job Market Insights', 
       icon: ChartPie, 
-      altIcon: Target,
       tooltip: 'Real-time analysis of job market trends' 
     },
     { 
       title: 'Mentor Guidance', 
       icon: Users, 
-      altIcon: Brain,
       tooltip: 'Connect with experienced mentors for advice' 
     },
     { 
       title: 'Updates on Hackathons', 
       icon: Code, 
-      altIcon: RocketLaunch,
       tooltip: 'Stay informed about upcoming hackathons' 
     },
     { 
       title: 'Student Dashboard', 
       icon: Briefcase, 
-      altIcon: Lightbulb,
       tooltip: 'Manage your academic and career progress' 
     },
     { 
       title: 'Tech News & Events', 
       icon: Newspaper, 
-      altIcon: RocketLaunch,
       tooltip: 'Latest updates on technology and events' 
     },
     { 
       title: 'Study Resources', 
       icon: Books, 
-      altIcon: Brain,
       tooltip: 'Access a variety of study materials' 
     },
   ];
@@ -222,12 +200,16 @@ const Dashboard = () => {
         </div>
 
         <div className="nav-right">
-          <button 
-            className="login-button" 
-            onClick={() => setShowAuthModal(true)}
-          >
-            Login
-          </button>
+          {user ? (
+            <UserInfo />
+          ) : (
+            <button 
+              className="login-button" 
+              onClick={() => setShowAuthModal(true)}
+            >
+              Login
+            </button>
+          )}
         </div>
       </nav>
 
@@ -275,6 +257,14 @@ const Dashboard = () => {
                   </div>
                   <h3>{feature.title}</h3>
                 </Link>
+              ) : feature.title === 'Job Market Insights' ? (
+                <Link to="/job-market" key={index} className="feature-card">
+                  <div className="feature-tooltip">{feature.tooltip}</div>
+                  <div className="feature-icon">
+                    <feature.icon size={44} weight="duotone" />
+                  </div>
+                  <h3>{feature.title}</h3>
+                </Link>
               ) : (
                 <FeatureCard 
                   key={index}
@@ -291,7 +281,7 @@ const Dashboard = () => {
           title="Ready to Start Your Journey?"
           subtitle="Join thousands of students who have already found their path"
           buttonText="Get Started Free"
-          onButtonClick={() => setShowLoginForm(true)}
+          onButtonClick={() => setShowAuthModal(true)}
         />
       </main>
 
@@ -321,7 +311,7 @@ const Dashboard = () => {
 
         {showChatbot && (
           <div className="chatbot-panel">
-            <Chatbot onClose={handleCloseChatbot} />
+            <ChatBot onClose={handleCloseChatbot} />
           </div>
         )}
       </div>
