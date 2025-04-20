@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { 
   Briefcase, Users, Code, ChartPie, 
   Newspaper, Books, RocketLaunch, Robot,
-  Book, BriefcaseMetal, ChatsCircle
+  BriefcaseMetal, ChatsCircle
 } from 'phosphor-react';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import Typed from 'typed.js';
@@ -251,6 +251,14 @@ const Dashboard = () => {
                 </Link>
               ) : feature.title === 'Student Dashboard' ? (
                 <Link to="/student-dashboard" key={index} className="feature-card">
+                  <div className="feature-tooltip">{feature.tooltip}</div>
+                  <div className="feature-icon">
+                    <feature.icon size={44} weight="duotone" />
+                  </div>
+                  <h3>{feature.title}</h3>
+                </Link>
+              ) : feature.title === 'Job Market Insights' ? (
+                <Link to="/job-market" key={index} className="feature-card">
                   <div className="feature-tooltip">{feature.tooltip}</div>
                   <div className="feature-icon">
                     <feature.icon size={44} weight="duotone" />

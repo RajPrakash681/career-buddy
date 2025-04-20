@@ -8,6 +8,7 @@ import LoadingScreen from './components/LoadingScreen';
 import News from './pages/News';
 import Hackathons from './pages/Hackathons';
 import StudentDashboard from './pages/StudentDashboard';
+import JobMarket from './pages/JobMarket';
 import './styles/global.css';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -40,6 +41,11 @@ function App() {
         <Route path="/news" element={<News />} />
         <Route path="/hackathons" element={<Hackathons />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
+        <Route path="/job-market" element={
+          <ProtectedRoute>
+            <JobMarket />
+          </ProtectedRoute>
+        } />
       </Routes>
     </BrowserRouter>
   );
