@@ -2,22 +2,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import { 
   Briefcase, Users, Code, ChartPie, 
   Newspaper, Books, RocketLaunch, 
-  Brain, Target, Lightbulb, ChatCircleText, Robot,
-  EnvelopeSimple, TwitterLogo, InstagramLogo,
-  Book, BriefcaseMetal, ChatsCircle
+  Brain, Target, Lightbulb, Robot,
+  BriefcaseMetal, ChatsCircle
 } from 'phosphor-react';
 import Typed from 'typed.js';
 import Particles from './Particles';
 import FloatingElements from './FloatingElements';
 import BackgroundWaves from './BackgroundWaves';
-import MagneticButton from './MagneticButton';
-import LoginForm from './LoginForm';
 import Testimonials from './Testimonials';
 import Footer from './Footer';
 import CallToAction from './CallToAction';
 import AuthModal from './AuthModal';
-import { sendChatMessage } from '../libs/apiCalls';
-import Chatbot from './Chatbot';
+import Chatbot from './ChatBot';
 import { Link } from 'react-router-dom';
 
 const FeatureCard = ({ title, icon: Icon, altIcon: AltIcon, tooltip }: {
@@ -251,7 +247,15 @@ const Dashboard = () => {
         <section className="features-section">
           <div className="features-grid">
             {features.map((feature, index) => (
-              feature.title === 'Tech News & Events' ? (
+              feature.title === 'Job Market Insights' ? (
+                <Link to="/job-market-insights" key={index} className="feature-card">
+                  <div className="feature-tooltip">{feature.tooltip}</div>
+                  <div className="feature-icon">
+                    <feature.icon size={44} weight="duotone" />
+                  </div>
+                  <h3>{feature.title}</h3>
+                </Link>
+              ) : feature.title === 'Tech News & Events' ? (
                 <Link to="/news" key={index} className="feature-card">
                   <div className="feature-tooltip">{feature.tooltip}</div>
                   <div className="feature-icon">

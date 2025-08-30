@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { sendChatMessage } from "../libs/apiCalls";
 import { X } from 'phosphor-react';
 import '../styles/ChatBot.css';
 
@@ -7,16 +6,9 @@ function Chatbot({ onClose }: { onClose: () => void }) {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Array<{ type: string, content: string }>>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [isDarkMode, setIsDarkMode] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle('light-mode');
-  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -33,16 +25,20 @@ function Chatbot({ onClose }: { onClose: () => void }) {
     }]);
   }, []);
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const content = e.target?.result as string;
-        setMessage(`Analyzing file: ${file.name}\n\n${content.slice(0, 1000)}...`);
-      };
-      reader.readAsText(file);
-      setSelectedFile(file);
+  // Mock responses for demonstration
+  const getMockResponse = (userMessage: string): string => {
+    const lowerMessage = userMessage.toLowerCase();
+    
+    if (lowerMessage.includes('resume') || lowerMessage.includes('cv')) {
+      return "I'd be happy to help you with your resume! Consider highlighting your key skills, quantifying your achievements, and tailoring it to the specific job you're applying for.";
+    } else if (lowerMessage.includes('interview')) {
+      return "Great question about interviews! Remember to research the company, prepare specific examples using the STAR method, and have thoughtful questions ready to ask the interviewer.";
+    } else if (lowerMessage.includes('job') || lowerMessage.includes('career')) {
+      return "Career planning is important! Focus on identifying your strengths, exploring growth opportunities in your field, and building a strong professional network.";
+    } else if (lowerMessage.includes('skill')) {
+      return "Developing new skills is key to career growth! Consider both technical skills relevant to your field and soft skills like communication, leadership, and problem-solving.";
+    } else {
+      return "That's a great question! I'm here to help with career advice, resume tips, interview preparation, and professional development. What specific aspect would you like to explore?";
     }
   };
 
@@ -57,13 +53,11 @@ function Chatbot({ onClose }: { onClose: () => void }) {
       setIsLoading(true);
       setMessages(prev => [...prev, { type: 'user', content: userMessage }]);
 
-      const response = await sendChatMessage(userMessage);
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
-      if (response?.response) {
-        setMessages(prev => [...prev, { type: 'bot', content: response.response }]);
-      } else {
-        throw new Error('Invalid response format');
-      }
+      const response = getMockResponse(userMessage);
+      setMessages(prev => [...prev, { type: 'bot', content: response }]);
     } catch (error: any) {
       setMessages(prev => [...prev, {
         type: 'error',

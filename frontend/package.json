@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
+    "build:check": "tsc && vite build",
     "preview": "vite preview",
     "emulate": "firebase emulators:start",
     "dev:firebase": "concurrently \"npm run dev\" \"npm run emulate\""

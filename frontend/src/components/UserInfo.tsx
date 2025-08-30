@@ -1,4 +1,3 @@
-import React from 'react';
 import { SignOut, User } from 'phosphor-react';
 import { auth } from '../config/firebase';
 
@@ -14,6 +13,7 @@ const UserInfo = () => {
       <div className="user-profile">
         {user?.photoURL ? (
           <img src={user.photoURL} alt="Profile" className="user-avatar" />
+            
         ) : (
           <User size={24} className="user-avatar-fallback" />
         )}
@@ -26,6 +26,7 @@ const UserInfo = () => {
       </div>
     </div>
   );
+
 };
 
 export default UserInfo;

@@ -26,6 +26,7 @@ const CallToAction: React.FC<CallToActionProps> = ({
         >
           {buttonText}
           <RocketLaunch weight="duotone" />
+          
         </button>
       </div>
     </section>
@@ -33,3 +34,4 @@ const CallToAction: React.FC<CallToActionProps> = ({
 };
 
 export default CallToAction;
+
