@@ -9,6 +9,7 @@ import News from './pages/News';
 import Hackathons from './pages/Hackathons';
 import StudentDashboard from './pages/StudentDashboard';
 import JobMarketInsights from './pages/JobMarketInsightsWorking';
+import StudyResources from './pages/StudyResources';
 import './styles/global.css';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -42,6 +43,7 @@ function App() {
         <Route path="/hackathons" element={<Hackathons />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/job-market-insights" element={<JobMarketInsights />} />
+        <Route path="/study-resources" element={<StudyResources />} />
       </Routes>
     </BrowserRouter>
   );

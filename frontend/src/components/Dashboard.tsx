@@ -279,6 +279,14 @@ const Dashboard = () => {
                   </div>
                   <h3>{feature.title}</h3>
                 </Link>
+              ) : feature.title === 'Study Resources' ? (
+                <Link to="/study-resources" key={index} className="feature-card">
+                  <div className="feature-tooltip">{feature.tooltip}</div>
+                  <div className="feature-icon">
+                    <feature.icon size={44} weight="duotone" />
+                  </div>
+                  <h3>{feature.title}</h3>
+                </Link>
               ) : (
                 <FeatureCard 
                   key={index}
