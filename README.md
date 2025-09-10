@@ -46,7 +46,7 @@ Built with ❤️ and sleepless nights ☕, this project aims to **redefine care
 
 - 🌐 **Frontend** → HTML, CSS, JavaScript  
 - ⚡ **Backend (Planned)** → Node.js, Express.js  
-- 🔮 **AI Integration** → Chatbot powered by NLP & ML  
+- 🔮 **AI Integration** → Chatbot powered by API integration
 - 🗄️ **Database (Planned)** → MongoDB / Firebase  
 - 🎨 **UI/UX** → Clean modern design inspired by Devfolio & Unstop  
 
@@ -65,14 +65,10 @@ Built with ❤️ and sleepless nights ☕, this project aims to **redefine care
 🤝 Contributing
 
 Contributions = ❤️
-
-Fork 🍴 the repo
-
-Create your branch 👉 git checkout -b feature-name
-
-Commit changes ✍️
-
-Open a Pull Request 📬
+--Fork 🍴 the repo
+--Create your branch 👉 git checkout -b feature-name
+--Commit changes ✍️
+--Op-en a Pull Request 📬
 🌟 Join the Movement
 
 Career-Buddy isn’t just a project — it’s a revolution 🔥.
