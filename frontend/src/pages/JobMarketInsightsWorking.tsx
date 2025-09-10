@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   TrendUp, MapPin, Clock, CurrencyDollar, 
   Users, Briefcase, ChartBar, MagnifyingGlass,
   Target, Code, Database, Palette, 
   Shield, Heart, Star, Buildings, 
   GraduationCap, Lightning, Trophy,
-  ArrowUp, ArrowDown, Spinner
+  ArrowUp, ArrowDown, Spinner, ArrowLeft
 } from 'phosphor-react';
-import '../styles/JobMarketInsightsNew.css';
+import '../styles/unified-dashboard.css';
+import '../styles/JobMarketInsights.css';
 
 interface JobListing {
   id: string;
@@ -227,100 +229,117 @@ const JobMarketInsightsWorking = () => {
   };
 
   return (
-    <div className="job-insights-container">
-      {/* Hero Section */}
-      <div className="insights-hero">
-        <div className="hero-content">
-          <h1>Job Market Insights</h1>
-          <p>Discover trending careers, salary insights, and personalized job recommendations</p>
-          
-          {/* Quick Stats */}
-          <div className="quick-stats">
-            <div className="stat-card">
-              <Briefcase weight="duotone" size={24} />
-              <div>
-                <h3>{(marketStats.totalJobs / 1000000).toFixed(1)}M+</h3>
-                <p>Active Jobs</p>
+    <div className="dashboard-page job-insights-container">
+      <nav className="dashboard-nav">
+        <Link to="/dashboard" className="back-button">
+          <ArrowLeft size={24} weight="bold" />
+          Back to Dashboard
+        </Link>
+        <h1>Job Market Insights</h1>
+      </nav>
+
+      <div className="dashboard-content">
+        {/* Hero Section */}
+        <div className="section-header insights-hero">
+          <div className="hero-content">
+            <h1 className="section-title">Job Market Insights</h1>
+            <p className="section-subtitle">Discover trending careers, salary insights, and personalized job recommendations</p>
+            
+            {/* Quick Stats */}
+            <div className="stats-grid quick-stats">
+              <div className="stat-card dashboard-card">
+                <div className="card-icon">
+                  <Briefcase weight="duotone" size={24} />
+                </div>
+                <div>
+                  <span className="stat-value">{(marketStats.totalJobs / 1000000).toFixed(1)}M+</span>
+                  <span className="stat-label">Active Jobs</span>
+                </div>
               </div>
-            </div>
-            <div className="stat-card">
-              <Users weight="duotone" size={24} />
-              <div>
-                <h3>{(marketStats.totalCompanies / 1000).toFixed(0)}K+</h3>
-                <p>Companies</p>
+              <div className="stat-card dashboard-card">
+                <div className="card-icon">
+                  <Users weight="duotone" size={24} />
+                </div>
+                <div>
+                  <span className="stat-value">{(marketStats.totalCompanies / 1000).toFixed(0)}K+</span>
+                  <span className="stat-label">Companies</span>
+                </div>
               </div>
-            </div>
-            <div className="stat-card">
-              <TrendUp weight="duotone" size={24} />
-              <div>
-                <h3>{marketStats.growthRate}%</h3>
-                <p>Growth Rate</p>
+              <div className="stat-card dashboard-card">
+                <div className="card-icon">
+                  <TrendUp weight="duotone" size={24} />
+                </div>
+                <div>
+                  <span className="stat-value">{marketStats.growthRate}%</span>
+                  <span className="stat-label">Growth Rate</span>
+                </div>
               </div>
-            </div>
-            <div className="stat-card">
-              <CurrencyDollar weight="duotone" size={24} />
-              <div>
-                <h3>${(marketStats.averageSalary / 1000).toFixed(0)}K</h3>
-                <p>Avg Salary</p>
+              <div className="stat-card dashboard-card">
+                <div className="card-icon">
+                  <CurrencyDollar weight="duotone" size={24} />
+                </div>
+                <div>
+                  <span className="stat-value">${(marketStats.averageSalary / 1000).toFixed(0)}K</span>
+                  <span className="stat-label">Avg Salary</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Navigation Tabs */}
-      <div className="insights-tabs">
-        <button 
-          className={`tab ${activeTab === 'overview' ? 'active' : ''}`}
-          onClick={() => setActiveTab('overview')}
-        >
-          <ChartBar weight="duotone" size={20} />
-          Market Overview
-        </button>
-        <button 
-          className={`tab ${activeTab === 'skills' ? 'active' : ''}`}
-          onClick={() => setActiveTab('skills')}
-        >
-          <Target weight="duotone" size={20} />
-          Skills Analysis
-        </button>
-        <button 
-          className={`tab ${activeTab === 'jobs' ? 'active' : ''}`}
-          onClick={() => setActiveTab('jobs')}
-        >
-          <MagnifyingGlass weight="duotone" size={20} />
-          Job Matcher
-        </button>
-        <button 
-          className={`tab ${activeTab === 'salaries' ? 'active' : ''}`}
-          onClick={() => setActiveTab('salaries')}
-        >
-          <CurrencyDollar weight="duotone" size={20} />
-          Salary Insights
-        </button>
-        <button 
-          className={`tab ${activeTab === 'companies' ? 'active' : ''}`}
-          onClick={() => setActiveTab('companies')}
-        >
-          <Buildings weight="duotone" size={20} />
-          Top Companies
-        </button>
-      </div>
+        {/* Navigation Tabs */}
+        <div className="search-filter-bar insights-tabs">
+          <button 
+            className={`filter-select tab ${activeTab === 'overview' ? 'active' : ''}`}
+            onClick={() => setActiveTab('overview')}
+          >
+            <ChartBar weight="duotone" size={20} />
+            Market Overview
+          </button>
+          <button 
+            className={`filter-select tab ${activeTab === 'skills' ? 'active' : ''}`}
+            onClick={() => setActiveTab('skills')}
+          >
+            <Target weight="duotone" size={20} />
+            Skills Analysis
+          </button>
+          <button 
+            className={`filter-select tab ${activeTab === 'jobs' ? 'active' : ''}`}
+            onClick={() => setActiveTab('jobs')}
+          >
+            <MagnifyingGlass weight="duotone" size={20} />
+            Job Matcher
+          </button>
+          <button 
+            className={`filter-select tab ${activeTab === 'salaries' ? 'active' : ''}`}
+            onClick={() => setActiveTab('salaries')}
+          >
+            <CurrencyDollar weight="duotone" size={20} />
+            Salary Insights
+          </button>
+          <button 
+            className={`filter-select tab ${activeTab === 'companies' ? 'active' : ''}`}
+            onClick={() => setActiveTab('companies')}
+          >
+            <Buildings weight="duotone" size={20} />
+            Top Companies
+          </button>
+        </div>
 
-      {/* Content Sections */}
-      <div className="insights-content">
+        {/* Content Sections */}
+        <div className="insights-content">
         {activeTab === 'overview' && (
           <div className="overview-section">
-            <h2>Industry Trends</h2>
-            <div className="trends-grid">
+            <h2 className="section-title">Industry Trends</h2>
+            <div className="content-grid two-column trends-grid">
               {marketTrends.map((trend, index) => (
-                <div key={index} className="trend-card" style={{ borderColor: trend.color }}>
+                <div key={index} className="dashboard-card trend-card" style={{ borderColor: trend.color }}>
                   <div className="trend-header">
-                    <div className="trend-icon" style={{ backgroundColor: `${trend.color}20`, color: trend.color }}>
+                    <div className="card-icon trend-icon" style={{ backgroundColor: `${trend.color}20`, color: trend.color }}>
                       <trend.icon weight="duotone" size={24} />
                     </div>
                     <div>
-                      <h3>{trend.field}</h3>
+                      <h3 className="card-title">{trend.field}</h3>
                       <span className={`demand-badge ${trend.demand.toLowerCase()}`}>
                         {trend.demand} Demand
                       </span>
@@ -348,12 +367,12 @@ const JobMarketInsightsWorking = () => {
 
         {activeTab === 'skills' && (
           <div className="skills-section">
-            <h2>In-Demand Skills</h2>
-            <div className="skills-grid">
+            <h2 className="section-title">In-Demand Skills</h2>
+            <div className="content-grid two-column skills-grid">
               {skillsData.map((skill, index) => (
-                <div key={index} className="skill-card">
+                <div key={index} className="dashboard-card skill-card">
                   <div className="skill-header">
-                    <h3>{skill.name}</h3>
+                    <h3 className="card-title">{skill.name}</h3>
                     <span className="skill-category">{skill.category}</span>
                   </div>
                   <div className="skill-metrics">
@@ -387,10 +406,10 @@ const JobMarketInsightsWorking = () => {
 
         {activeTab === 'salaries' && (
           <div className="salaries-section">
-            <h2>Salary Insights & Trends</h2>
-            <div className="salary-trends-grid">
+            <h2 className="section-title">Salary Insights & Trends</h2>
+            <div className="content-grid two-column salary-trends-grid">
               {salaryTrends.map((salary, index) => (
-                <div key={index} className="salary-trend-card">
+                <div key={index} className="dashboard-card salary-trend-card">
                   <div className="salary-header">
                     <h3>{salary.title}</h3>
                     <span className={`trend-indicator ${salary.trend}`}>
@@ -426,10 +445,10 @@ const JobMarketInsightsWorking = () => {
 
         {activeTab === 'companies' && (
           <div className="companies-section">
-            <h2>Top Companies to Work For</h2>
-            <div className="companies-grid">
+            <h2 className="section-title">Top Companies to Work For</h2>
+            <div className="content-grid two-column companies-grid">
               {topCompanies.map((company, index) => (
-                <div key={index} className="company-card">
+                <div key={index} className="dashboard-card company-card">
                   <div className="company-header">
                     <div className="company-logo">🏢</div>
                     <div className="company-info">
@@ -492,11 +511,11 @@ const JobMarketInsightsWorking = () => {
 
         {activeTab === 'jobs' && (
           <div className="job-matcher-section">
-            <h2>Personalized Job Recommendations</h2>
+            <h2 className="section-title">Personalized Job Recommendations</h2>
             
             {/* Skills Input */}
-            <div className="skills-input-section">
-              <h3>Enter Your Skills</h3>
+            <div className="dashboard-card skills-input-section">
+              <h3 className="card-title">Enter Your Skills</h3>
               <div className="skills-input-container">
                 <div className="skill-input-wrapper">
                   <input
@@ -543,10 +562,10 @@ const JobMarketInsightsWorking = () => {
             {/* Job Recommendations */}
             {showRecommendations && (
               <div className="recommendations-section">
-                <h3>Recommended Jobs ({jobRecommendations.length} matches)</h3>
-                <div className="job-cards">
+                <h3 className="card-title">Recommended Jobs ({jobRecommendations.length} matches)</h3>
+                <div className="content-grid job-cards">
                   {jobRecommendations.map((job) => (
-                    <div key={job.id} className="job-card">
+                    <div key={job.id} className="dashboard-card job-card">
                       <div className="job-header">
                         <div className="company-logo">{job.logo}</div>
                         <div className="job-info">
@@ -607,8 +626,8 @@ const JobMarketInsightsWorking = () => {
                         )}
                         
                         <div className="job-actions">
-                          <button className="apply-btn">Apply Now</button>
-                          <button className="save-btn">Save Job</button>
+                          <button className="card-action apply-btn">Apply Now</button>
+                          <button className="card-action save-btn">Save Job</button>
                         </div>
                       </div>
                     </div>
@@ -618,6 +637,7 @@ const JobMarketInsightsWorking = () => {
             )}
           </div>
         )}
+      </div>
       </div>
     </div>
   );

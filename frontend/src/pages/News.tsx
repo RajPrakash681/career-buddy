@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
+import '../styles/unified-dashboard.css';
 import '../styles/News.css';
 import { ArrowLeft, Calendar, Globe, ArrowCircleUp } from 'phosphor-react';
 import { Link } from 'react-router-dom';
@@ -96,8 +97,8 @@ const News = () => {
   };
 
   return (
-    <div className="news-page">
-      <nav className="news-nav">
+    <div className="dashboard-page">
+      <nav className="dashboard-nav">
         <Link to="/dashboard" className="back-button">
           <ArrowLeft size={24} weight="bold" />
           Back to Dashboard
@@ -105,15 +106,27 @@ const News = () => {
         <h1>Tech News & Events</h1>
       </nav>
 
-      <div className="news-container">
-        <div className="categories-container">
+      <div className="dashboard-content">
+        <div className="section-header">
+          <h2 className="section-title">Latest Tech News & Events</h2>
+          <p className="section-subtitle">Stay updated with the latest technology trends and industry events</p>
+        </div>
+
+        <div className="search-filter-bar">
           {categories.map(cat => (
             <button
               key={cat}
-              className={`category-btn ${cat === category ? 'active' : ''}`}
+              className={`filter-select ${cat === category ? 'active' : ''}`}
               onClick={() => handleCategoryChange(cat)}
+              style={{ 
+                minWidth: 'auto', 
+                padding: '0.75rem 1.5rem',
+                borderRadius: '25px',
+                fontWeight: cat === category ? '600' : '500',
+                textTransform: 'capitalize'
+              }}
             >
-              {cat.charAt(0).toUpperCase() + cat.slice(1)}
+              {cat.charAt(0).toUpperCase() + cat.slice(1).replace('-', ' ')}
             </button>
           ))}
         </div>
@@ -124,9 +137,9 @@ const News = () => {
           </div>
         ) : (
           <>
-            <div className="news-grid">
+            <div className="content-grid three-column">
               {news.map((article, index) => (
-                <article key={index} className="news-card">
+                <article key={index} className="dashboard-card news-card">
                   <div className="news-image-container">
                     {article.urlToImage ? (
                       <img src={article.urlToImage} alt={article.title} />
@@ -144,9 +157,9 @@ const News = () => {
                         {new Date(article.publishedAt).toLocaleDateString()}
                       </span>
                     </div>
-                    <h2>{article.title}</h2>
-                    <p>{article.description}</p>
-                    <a href={article.url} target="_blank" rel="noopener noreferrer" className="read-more">
+                    <h3 className="card-title">{article.title}</h3>
+                    <p className="card-description">{article.description}</p>
+                    <a href={article.url} target="_blank" rel="noopener noreferrer" className="card-action">
                       Read More
                     </a>
                   </div>
@@ -156,18 +169,21 @@ const News = () => {
             
             {loading && (
               <div className="loading-container">
-                <div className="loader"></div>
-                <p>Loading more news...</p>
+                <div className="loading-spinner"></div>
+                <p className="loading-text">Loading more news...</p>
               </div>
             )}
             
-            <button 
-              className="load-more-btn"
-              onClick={loadMore}
-              disabled={loading}
-            >
-              Load More News
-            </button>
+            <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+              <button 
+                className="card-action"
+                onClick={loadMore}
+                disabled={loading}
+                style={{ display: 'inline-flex' }}
+              >
+                Load More News
+              </button>
+            </div>
 
             <button 
               className="scroll-top-btn"

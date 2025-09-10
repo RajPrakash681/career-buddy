@@ -1,8 +1,8 @@
 /* Job Market Insights Styles */
 .job-market-insights {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 1rem 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 0;
   position: relative;
   overflow-x: hidden;
 }
@@ -15,8 +15,8 @@
   right: 0;
   bottom: 0;
   background: 
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+    radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.05) 0%, transparent 50%);
   pointer-events: none;
   z-index: 1;
 }
@@ -24,7 +24,7 @@
 .insights-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 2rem;
   position: relative;
   z-index: 2;
 }
@@ -32,8 +32,8 @@
 /* Header */
 .insights-header {
   text-align: center;
-  margin-bottom: 2.5rem;
-  color: white;
+  margin-bottom: 3rem;
+  color: var(--text);
   padding: 2rem 0;
 }
 
@@ -41,7 +41,7 @@
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 700;
   margin-bottom: 1rem;
-  background: linear-gradient(45deg, #fff, #e2e8f0);
+  background: linear-gradient(135deg, var(--primary), var(--highlight));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -50,7 +50,7 @@
 
 .insights-header p {
   font-size: clamp(1rem, 2.5vw, 1.3rem);
-  opacity: 0.9;
+  color: var(--text-light);
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
@@ -59,20 +59,20 @@
 /* Market Overview Cards */
 .market-overview {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
   margin-bottom: 3rem;
 }
 
 .overview-card {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(15, 15, 30, 0.1);
   border-radius: 20px;
   padding: 2rem;
-  color: white;
+  color: var(--text);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden;
 }
@@ -84,15 +84,16 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #22c55e, #06b6d4, #8b5cf6);
+  background: linear-gradient(90deg, var(--primary), var(--accent), var(--highlight));
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .overview-card:hover {
   transform: translateY(-8px);
-  background: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  border-color: rgba(224, 28, 69, 0.2);
 }
 
 .overview-card:hover::before {
@@ -100,7 +101,7 @@
 }
 
 .card-icon {
-  background: rgba(255, 255, 255, 0.25);
+  background: linear-gradient(135deg, var(--primary), var(--accent));
   width: 70px;
   height: 70px;
   border-radius: 16px;
@@ -108,20 +109,21 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(15, 15, 30, 0.15);
   transition: all 0.3s ease;
+  color: white;
 }
 
 .overview-card:hover .card-icon {
   transform: scale(1.1);
-  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 12px 30px rgba(15, 15, 30, 0.2);
 }
 
 .card-content h3 {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  opacity: 0.9;
+  color: var(--text-light);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -131,6 +133,7 @@
   font-weight: 800;
   margin-bottom: 0.75rem;
   line-height: 1;
+  color: var(--text);
 }
 
 .change {
@@ -141,7 +144,7 @@
   font-weight: 600;
   padding: 0.4rem 0.8rem;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(15, 15, 30, 0.05);
   width: fit-content;
 }
 
@@ -160,18 +163,18 @@
   gap: 1.5rem;
   margin-bottom: 2.5rem;
   padding: 2rem;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(15, 15, 30, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
 }
 
 .filter-group {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  color: white;
+  color: var(--text);
   min-width: 180px;
   flex: 1;
 }
@@ -181,15 +184,15 @@
   font-size: 0.95rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  opacity: 0.9;
+  color: var(--text-light);
 }
 
 .filter-group select {
   padding: 1rem 1.25rem;
   border-radius: 12px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  border: 2px solid rgba(15, 15, 30, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text);
   font-size: 1rem;
   font-weight: 500;
   transition: all 0.3s ease;

@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowLeft, BookOpen, Code, Target, Lightbulb } from 'phosphor-react';
+import '../styles/unified-dashboard.css';
 import '../styles/StudyResources.css';
 
 interface Resource {
@@ -92,22 +95,25 @@ const StudyResources: React.FC = () => {
     );
   };
 
-  const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => (
-    <div className="resource-card">
-      <h3 className="resource-name">{resource.name}</h3>
-      <p className="resource-description">{resource.description}</p>
+  const ResourceCard: React.FC<{ resource: Resource; icon: React.ElementType }> = ({ resource, icon: Icon }) => (
+    <div className="dashboard-card resource-card">
+      <div className="card-icon">
+        <Icon size={40} weight="duotone" />
+      </div>
+      <h3 className="card-title">{resource.name}</h3>
+      <p className="card-description">{resource.description}</p>
       <a
         href={resource.link}
         target="_blank"
         rel="noopener noreferrer"
-        className="resource-link"
+        className="card-action"
       >
         Visit Resource
       </a>
     </div>
   );
 
-  const ResourceSection: React.FC<{ title: string; resources: Resource[] }> = ({ title, resources }) => {
+  const ResourceSection: React.FC<{ title: string; resources: Resource[]; icon: React.ElementType }> = ({ title, resources, icon }) => {
     const filteredResources = filterResources(resources);
     
     if (filteredResources.length === 0) return null;
@@ -115,9 +121,9 @@ const StudyResources: React.FC = () => {
     return (
       <section className="resource-section">
         <h2 className="section-title">{title}</h2>
-        <div className="resource-grid">
+        <div className="content-grid three-column">
           {filteredResources.map((resource, index) => (
-            <ResourceCard key={index} resource={resource} />
+            <ResourceCard key={index} resource={resource} icon={icon} />
           ))}
         </div>
       </section>
@@ -125,14 +131,24 @@ const StudyResources: React.FC = () => {
   };
 
   return (
-    <div className="study-resources">
-      {/* Hero Section */}
-      <div className="hero-section">
-        <h1 className="hero-title">Study Resources</h1>
-        <p className="hero-subtitle">
-          Curated resources to help you learn programming, computer science, and more.
-        </p>
-        <div className="search-container">
+    <div className="dashboard-page">
+      <nav className="dashboard-nav">
+        <Link to="/dashboard" className="back-button">
+          <ArrowLeft size={24} weight="bold" />
+          Back to Dashboard
+        </Link>
+        <h1>Study Resources</h1>
+      </nav>
+
+      <div className="dashboard-content">
+        <div className="section-header">
+          <h1 className="section-title">Study Resources</h1>
+          <p className="section-subtitle">
+            Curated resources to help you learn programming, computer science, and more.
+          </p>
+        </div>
+
+        <div className="search-filter-bar">
           <input
             type="text"
             placeholder="Search resources..."
@@ -141,35 +157,37 @@ const StudyResources: React.FC = () => {
             className="search-input"
           />
         </div>
-      </div>
 
-      {/* Resource Categories */}
-      <div className="content-container">
         <ResourceSection 
           title="Free University Courses" 
-          resources={freeUniversityCourses} 
+          resources={freeUniversityCourses}
+          icon={BookOpen}
         />
         
         <ResourceSection 
           title="Interactive Platforms" 
-          resources={interactivePlatforms} 
+          resources={interactivePlatforms}
+          icon={Code}
         />
         
         <ResourceSection 
           title="Specialized Tools & Challenges" 
-          resources={specializedTools} 
+          resources={specializedTools}
+          icon={Target}
         />
 
-        {/* Tips for Learners */}
-        <section className="tips-section">
-          <h2 className="section-title">Tips for Learners</h2>
+        <div className="dashboard-card">
+          <div className="card-icon">
+            <Lightbulb size={40} weight="duotone" />
+          </div>
+          <h2 className="card-title">Tips for Learners</h2>
           <ul className="tips-list">
             <li>Start with one beginner course</li>
             <li>Practice small projects</li>
             <li>Use challenge tools to improve</li>
             <li>Stay consistent with weekly goals</li>
           </ul>
-        </section>
+        </div>
       </div>
     </div>
   );
